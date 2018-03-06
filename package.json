@@ -1,5 +1,5 @@
 {
-  "name": "The Spot",
+  "name": "spot",
   "version": "1.0.0",
   "description": "App that reviews Atlanta bars and restaurants",
   "main": "server.js",
@@ -20,5 +20,8 @@
   "dependencies": {
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0"
+  },
+  "devDependencies": {
+    
   }
 }
