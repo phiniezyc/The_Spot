@@ -5,7 +5,10 @@ const app = express();
 const routes = require('./controllers/routes.js');
 const exphbs = require('express-handlebars');
 
+const bodyParser = require('body-parser');
 
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.engine('handlebars', exphbs({
