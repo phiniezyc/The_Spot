@@ -20,7 +20,9 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "express-handlebars": "^3.0.0"
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.0.9",
+    "nodemon": "^1.17.1"
   },
   "devDependencies": {}
 }
