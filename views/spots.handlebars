@@ -15,6 +15,9 @@
   {{#each spots}}
     <h1> {{this.name}}</h1>
     <img src='{{this.image}}'> 
+    <p>
+      <a href="/spots/{{this._id}}" class="btn btn-primary">More Info</a>
+    </p>
   {{/each}}
 </div>
 

@@ -2,7 +2,7 @@
 const express = require('express');
 
 const router = express.Router();
-const Spots = require('../models/spots'); 
+const SpotsDB = require('../models/spots');
 
 
 router.get('/', (req, res) => {
@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/spots', (req, res) => {
-  Spots.find({}, (err, allSpots) => {
+  SpotsDB.find({}, (err, allSpots) => {
     if (err) {
       console.log(err);
     } else {
@@ -24,8 +24,9 @@ router.get('/spots', (req, res) => {
 router.post('/spots', (req, res) => {
   const { name } = req.body;
   const { image } = req.body;
-  const newSpot = { name, image };
-  Spots.create(newSpot, (err, newCreatedSpot) => {
+  const { description } = req.body;
+  const newSpot = { name, image, description };
+  SpotsDB.create(newSpot, (err, newCreatedSpot) => {
     if (err) {
       console.log(err);
     } else {
@@ -36,6 +37,18 @@ router.post('/spots', (req, res) => {
 
 router.get('/spots/new', (req, res) => {
   res.render('new');
+});
+
+router.get('/spots/:id', (req, res) => {
+  // const spotId = req.params.id;
+  // console.log(spotId);
+  SpotsDB.findById(req.params.id, (err, foundSpot) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('show', { spot: foundSpot });
+    }
+  });
 });
 
 
