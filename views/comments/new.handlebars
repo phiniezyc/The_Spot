@@ -1,1 +1,9 @@
-<h1>New Comment Page!</h1>
+<h2>create new comment for {{spot.name}}</h2>
+
+<form action='/spots/{{spot.id}}/comments' method='POST' >
+    <input type='text' name='comment[text]' placeholder="text">
+    <input type='text' name='comment[author]' placeholder="author">
+    <button>Submit!</button>
+</form>
+
+<a href="/spots">Back</a>

@@ -4,9 +4,15 @@
     <img src='{{spot.image}}'>
     <p>{{spot.description}}</p>
 
-    {{#each comments}}
-    <h5> {{this.comment.author}}</h5>
-    <p>{{this.comment.text}}</p>
+
+ {{!-- Not working: --}}
+    {{#each spot.comments}}
+    <div>
+    <h5> {{this.author}}</h5>
+    <p>{{this.text}}</p>
+    </div>
     {{/each}}
+    
+
 
 </div>

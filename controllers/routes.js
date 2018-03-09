@@ -54,8 +54,37 @@ router.get('/spots/:id', (req, res) => {
 // ========Comment Routes ======================
 
 router.get('/spots/:id/comments/new', (req, res) => {
-  res.render('comments/new');
-})
+  Spot.findById(req.params.id, (err, spot) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('comments/new', { spot });
+    }
+  });
+});
+
+router.post('/spots/:id/comments', (req, res) => {
+  Spot.findById(req.params.id, (err, spot) => {
+    if (err) {
+      console.log(err);
+      res.redirect('/spots');
+    } else {
+      Comment.create(req.body.comment, (err, comment) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`here is spot.comment: ${spot.comments}`);
+          console.log(`here is comment: ${comment}`)
+
+          //  spot here refers to the spot returned after finding Spot by id in this post route
+          spot.comments.push(comment); // where is the comments array? is that the problem?
+          spot.save();
+          res.redirect(`/spots/${spot._id}`);
+        }
+      });
+    }
+  });
+});
 
 
 module.exports = router;
