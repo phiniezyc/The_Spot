@@ -73,11 +73,8 @@ router.post('/spots/:id/comments', (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(`here is spot.comment: ${spot.comments}`);
-          console.log(`here is comment: ${comment}`)
-
           //  spot here refers to the spot returned after finding Spot by id in this post route
-          spot.comments.push(comment); // where is the comments array? is that the problem?
+          spot.comments.push(comment);
           spot.save();
           res.redirect(`/spots/${spot._id}`);
         }
