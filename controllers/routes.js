@@ -3,6 +3,7 @@ const express = require('express');
 
 const router = express.Router();
 const Spot = require('../models/spots');
+const Comment = require('../models/comments');
 
 
 router.get('/', (req, res) => {
@@ -14,7 +15,7 @@ router.get('/spots', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('spots', {
+      res.render('spots/spots', {
         spots: allSpots,
       });
     }
@@ -36,20 +37,25 @@ router.post('/spots', (req, res) => {
 });
 
 router.get('/spots/new', (req, res) => {
-  res.render('new');
+  res.render('spots/new');
 });
 
 router.get('/spots/:id', (req, res) => {
-  // const spotId = req.params.id;
-  // console.log(spotId);
-  Spot.findById(req.params.id, (err, foundSpot) => {
+  // finding the spot, populating the comments on that spot, THEN executiring the query we made
+  Spot.findById(req.params.id).populate('comments').exec((err, foundSpot) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('show', { spot: foundSpot });
+      res.render('spots/show', { spot: foundSpot });
     }
   });
 });
+
+// ========Comment Routes ======================
+
+router.get('/spots/:id/comments/new', (req, res) => {
+  res.render('comments/new');
+})
 
 
 module.exports = router;

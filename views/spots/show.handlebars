@@ -1,0 +1,12 @@
+<div class="spotsList">
+
+    <h3>{{spot.name}}</h3>
+    <img src='{{spot.image}}'>
+    <p>{{spot.description}}</p>
+
+    {{#each comments}}
+    <h5> {{this.comment.author}}</h5>
+    <p>{{this.comment.text}}</p>
+    {{/each}}
+
+</div>
