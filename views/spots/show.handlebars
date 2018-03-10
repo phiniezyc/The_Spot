@@ -1,20 +1,45 @@
 <div class="spotsList">
+    <div class="container">
+        <div class='row'>
+            <div>
+                <div class="col-md-3">
+                    <p class='lead'>The Spot</p>
+                    <div class="list-group">
+                        <li class="list-group-item active">Item 1</li>
+                        <li class="list-group-item">Item 2</li>
+                        <li class="list-group-item">Item 3</li>
+                    </div>
+                </div>
 
-    <h3>{{spot.name}}</h3>
-    <img src='{{spot.image}}'>
-    <p>{{spot.description}}</p>
-
-    <p>
-        <a href='/spots/{{spot._id}}/comments/new'>Add Comment</a>
-    </p>
-
-    {{#each spot.comments}}
-    <div>
-    <h5> {{this.author}}</h5>
-    <p>{{this.text}}</p>
+                <div class="col-md-9">
+                    <div class='thumbnail'> 
+                        <img class='img-responsive' src='{{spot.image}}'> 
+                        <div class='caption-full'>
+                            <h4 class='pull-right'>Hard Coded Price: $100</h4>
+                            <h4><a>{{spot.name}}</a></h4>
+                            <p>{{spot.description}}</p>
+                        </div>
+                    </div>
+                    <div class='well'>
+                        <div class="text-right">
+                           
+                            <a class='btn btn-success' href='/spots/{{spot._id}}/comments/new'>Add Comment</a>
+                        </div>
+                         <hr>
+                         {{#each spot.comments}}
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                   <strong>{{this.author}}</strong> 
+                                    <span class="pull-right">10 days ago (hard coded)</span>
+                                    <p>
+                                        {{this.text}}
+                                    </p>
+                                </div>
+                            </div>
+                            {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    {{/each}}
-    
-
-
 </div>

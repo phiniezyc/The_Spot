@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}/public`)); // __dirname just says look for it in the full path for the public folder.  It should be unnecessary, but it's just a precaution in case can't find file!
 
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
