@@ -10,10 +10,11 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const LocalStrategy = require('passport-local');
 
-// const app = express();
-// app.use(passport.initialize());
-// app.use(passport.session());
+const app = express();
+app.use(passport.initialize());
+app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
@@ -119,7 +120,6 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  session: true, // had to add this in otherwise got failure to serialize error!
   successRedirect: '/spots',
   failureRedirect: '/login',
 }), (req, res) => {}); // this callback doesn't do anything, but left it so can see how the middleware works
