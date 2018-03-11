@@ -119,7 +119,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  session: false, // had to add this in otherwise got failure to serialize error!
+  session: true, // had to add this in otherwise got failure to serialize error!
   successRedirect: '/spots',
   failureRedirect: '/login',
 }), (req, res) => {}); // this callback doesn't do anything, but left it so can see how the middleware works
