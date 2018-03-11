@@ -64,7 +64,7 @@ router.get('/spots/:id', (req, res) => {
 
 // ========Comment Routes ======================
 
-router.get('/spots/:id/comments/new', (req, res) => {
+router.get('/spots/:id/comments/new', isLoggedIn, (req, res) => {
   Spot.findById(req.params.id, (err, spot) => {
     if (err) {
       console.log(err);
@@ -122,8 +122,19 @@ router.post('/login', passport.authenticate('local', {
   session: false, // had to add this in otherwise got failure to serialize error!
   successRedirect: '/spots',
   failureRedirect: '/login',
-}), (req, res) => {});
-// this callback doesn't do anything, but just left it so can see how the middleware works
+}), (req, res) => {}); // this callback doesn't do anything, but left it so can see how the middleware works
 
+
+router.get('/logout', (req, res) => {
+  req.logOut();
+  res.redirect('/spots');
+});
+
+function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
 
 module.exports = router;
