@@ -2,8 +2,19 @@
 const express = require('express');
 
 const router = express.Router();
-const Spot = require('../models/spots');
-const Comment = require('../models/comments');
+const Spot = require('../models/Spots');
+const Comment = require('../models/Comments');
+const User = require('../models/Users');
+
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
+const LocalStrategy = require('passport-local');
+
+// const app = express();
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.deserializeUser(User.deserializeUser());
 
 
 router.get('/', (req, res) => {
@@ -82,6 +93,36 @@ router.post('/spots/:id/comments', (req, res) => {
     }
   });
 });
+
+
+// AUTH ROUTES
+router.get('/register', (req, res) => {
+  res.render('register');
+});
+
+router.post('/register', (req, res) => {
+  const newUser = new User({ username: req.body.username });
+  User.register(newUser, req.body.password, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.render('register'); // return is a good way to just exit the callback if we get an error
+    }
+    passport.authenticate('local')(req, res, () => {
+      res.redirect('spots');
+    });
+  });
+});
+
+
+router.get('/login', (req, res) => {
+  res.render('login');
+});
+
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/spots',
+  failureRedirect: '/login',
+}), (req, res) => {});
+// this callback doesn't do anything, but just left it so can see how the middleware works
 
 
 module.exports = router;

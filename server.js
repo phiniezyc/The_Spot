@@ -2,10 +2,15 @@
 const express = require('express');
 
 const app = express();
-const routes = require('./controllers/routes.js');
-const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
+const LocalStrategy = require('passport-local');
+const routes = require('./controllers/routes.js');
+const expressSession = require('express-session');
+const User = require('./models/Users');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,6 +21,19 @@ app.engine('handlebars', exphbs({
 }));
 
 app.set('view engine', 'handlebars'); // setting this means we can leave off .handlebars on our handlebars files
+
+// PASSPORT CONFIG
+app.use(expressSession({
+  secret: 'Ayton is a beast, I hope he is a Hawk!',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.deserializeUser(User.deserializeUser());
+
 
 app.use('/', routes);
 
