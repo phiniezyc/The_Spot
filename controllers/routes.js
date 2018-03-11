@@ -13,8 +13,8 @@ const LocalStrategy = require('passport-local');
 // const app = express();
 // app.use(passport.initialize());
 // app.use(passport.session());
-// passport.use(new LocalStrategy(User.authenticate()));
-// passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.deserializeUser(User.deserializeUser());
 
 
 router.get('/', (req, res) => {
@@ -119,6 +119,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
+  session: false, // had to add this in otherwise got failure to serialize error!
   successRedirect: '/spots',
   failureRedirect: '/login',
 }), (req, res) => {});
