@@ -23,12 +23,15 @@ router.get('/', (req, res) => {
 });
 
 router.get('/spots', (req, res) => {
+  console.log(req.user);
+
   Spot.find({}, (err, allSpots) => {
     if (err) {
       console.log(err);
     } else {
       res.render('spots/spots', {
         spots: allSpots,
+        currentUser: req.user,
       });
     }
   });
@@ -75,7 +78,7 @@ router.get('/spots/:id/comments/new', isLoggedIn, (req, res) => {
   });
 });
 
-router.post('/spots/:id/comments', (req, res) => {
+router.post('/spots/:id/comments', isLoggedIn, (req, res) => { // protects from someone using postman to submit comment
   Spot.findById(req.params.id, (err, spot) => {
     if (err) {
       console.log(err);
