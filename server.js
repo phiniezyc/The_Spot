@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
 const LocalStrategy = require('passport-local');
 const routes = require('./controllers/routes.js');
 const expressSession = require('express-session');
@@ -34,8 +33,14 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.deserializeUser(User.deserializeUser());
 
+const commentRoutes = require('./controllers/routes/comments');
+const spotRoutes = require('./controllers/routes/spots');
+const indexRoutes = require('./controllers/routes/index');
 
 app.use('/', routes);
+app.use(commentRoutes);
+app.use('/spots', spotRoutes); // '/spotts' shortens the routes in spots file. Everything starts w/ /spots
+app.use(indexRoutes);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/The_Spot');
