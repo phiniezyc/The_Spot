@@ -7,7 +7,6 @@ const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const routes = require('./controllers/routes.js');
 const expressSession = require('express-session');
 const User = require('./models/Users');
 
@@ -37,10 +36,11 @@ const commentRoutes = require('./controllers/routes/comments');
 const spotRoutes = require('./controllers/routes/spots');
 const indexRoutes = require('./controllers/routes/index');
 
-app.use('/', routes);
-app.use(commentRoutes);
-app.use('/spots', spotRoutes); // '/spotts' shortens the routes in spots file. Everything starts w/ /spots
-app.use(indexRoutes);
+app.use('/', indexRoutes);
+app.use('/spots', spotRoutes); // '/spots' shortens the routes in spots file. Everything starts w/ /spots
+app.use('/spots/:id/comments', commentRoutes);
+// Wherever we have a param value (like :id) as a prefix to the routes (like commentRoutes),
+// use mergeParams (in the file) for those routes to get the value of :id passed in to that router.
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/The_Spot');
