@@ -6,6 +6,14 @@ const spotSchema = new Schema({
   name: String,
   image: String,
   description: String,
+  // this could be called author or user, doesn't really matter
+  author: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    username: String,
+  },
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,

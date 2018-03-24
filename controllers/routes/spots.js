@@ -6,7 +6,7 @@ const Spot = require('../../models/Spots');
 
 
 router.get('/', (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
 
   Spot.find({}, (err, allSpots) => {
     if (err) {
@@ -20,11 +20,18 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/', isLoggedIn, (req, res) => {
   const { name } = req.body;
   const { image } = req.body;
   const { description } = req.body;
-  const newSpot = { name, image, description };
+  const author = {
+    id: req.user.id,
+    username: req.user.username,
+  };
+  const newSpot = {
+    name, image, description, author,
+  };
+
   Spot.create(newSpot, (err, newCreatedSpot) => {
     if (err) {
       console.log(err);
@@ -34,7 +41,7 @@ router.post('/', (req, res) => {
   });
 });
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
   res.render('spots/new');
 });
 
@@ -48,5 +55,13 @@ router.get('/:id', (req, res) => {
     }
   });
 });
+
+
+function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
 
 module.exports = router;
