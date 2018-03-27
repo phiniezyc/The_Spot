@@ -57,7 +57,7 @@ router.get('/:id', (req, res) => {
 });
 
 
-// EDIT CAMPGROUND ROUTE
+// EDIT SPOT ROUTE this gets the update form page and data from that spot
 router.get('/:id/edit', (req, res) => {
   Spot.findById(req.params.id, (err, foundSpot) => {
     if (err) {
@@ -68,13 +68,24 @@ router.get('/:id/edit', (req, res) => {
   });
 });
 
-// UPDATE CAMPGROUND ROUTE
+// UPDATE SPOT ROUTE this is the route that actually makes the spot update 
 router.put('/:id', (req, res) => {
   Spot.findByIdAndUpdate(req.params.id, req.body.spot, (err, updatedSpot) => {
     if (err) {
       res.redirect('/spots');
     } else {
       res.redirect(`/spots/${req.params.id}`);
+    }
+  });
+});
+
+// DELETE (Destroy) SPOT
+router.delete('/:id', (req, res) => {
+  Spot.findByIdAndRemove(req.params.id, (err) => {
+    if (err) {
+      res.redirect('/spots');
+    } else {
+      res.redirect('/spots');
     }
   });
 });

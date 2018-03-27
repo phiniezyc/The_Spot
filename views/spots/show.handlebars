@@ -21,7 +21,13 @@
                             <p>
                                <em>Submitted By: {{spot.author.username}}</em>
                             </p>
+
                             <a class='btn btn-warning' href='/spots/{{spot._id}}/edit'>Edit</a>
+                            
+                            <form action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
+                                <button class='btn btn-danger'>Delete</button>
+                            </form>
+
                         </div>
                     </div>
                     <div class='well'>
