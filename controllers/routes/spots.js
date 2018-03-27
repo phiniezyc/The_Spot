@@ -102,12 +102,10 @@ function checkSpotOwnership(req, res, next) {
     Spot.findById(req.params.id, (err, foundSpot) => {
       if (err) {
         res.redirect('back');
+      } else if (foundSpot.author.id.equals(req.user._id)) { // has to use this mongoose method because they look the same but one is actually an object and the other a string!
+        next();
       } else {
-        if (foundSpot.author.id.equals(req.user._id)) { // has to use this mongoose method because they look the same but one is actually an object and the other a string!
-          next();
-        } else {
-          res.redirect('back');
-        }
+        res.redirect('back');
       }
     });
   } else {
