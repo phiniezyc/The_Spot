@@ -19,3 +19,7 @@
 .thumbnail caption-full {
     padding-left: 9px;
 }
+
+#deleteForm {
+    display: inline;
+}
