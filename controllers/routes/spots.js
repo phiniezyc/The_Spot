@@ -58,17 +58,14 @@ router.get('/:id', (req, res) => {
 
 
 // EDIT SPOT ROUTE this gets the update form page and data from that spot
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', checkSpotOwnership, (req, res) => {
+  // is user logged in?
   Spot.findById(req.params.id, (err, foundSpot) => {
-    if (err) {
-      res.redirect('/spots');
-    } else {
-      res.render('spots/edit', { spot: foundSpot });
-    }
+    res.render('spots/edit', { spot: foundSpot });
   });
 });
 
-// UPDATE SPOT ROUTE this is the route that actually makes the spot update 
+// UPDATE SPOT ROUTE this is the route that actually makes the spot update
 router.put('/:id', (req, res) => {
   Spot.findByIdAndUpdate(req.params.id, req.body.spot, (err, updatedSpot) => {
     if (err) {
@@ -90,6 +87,9 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+
+// Middleware
+
 function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
   if (req.isAuthenticated()) {
     return next();
@@ -97,4 +97,21 @@ function isLoggedIn(req, res, next) { // Can use this on ANY page we want to res
   res.redirect('/login');
 }
 
+function checkSpotOwnership(req, res, next) {
+  if (req.isAuthenticated()) {
+    Spot.findById(req.params.id, (err, foundSpot) => {
+      if (err) {
+        res.redirect('back');
+      } else {
+        if (foundSpot.author.id.equals(req.user._id)) { // has to use this mongoose method because they look the same but one is actually an object and the other a string!
+          next();
+        } else {
+          res.redirect('back');
+        }
+      }
+    });
+  } else {
+    res.redirect('back');
+  }
+}
 module.exports = router;
