@@ -57,6 +57,28 @@ router.get('/:id', (req, res) => {
 });
 
 
+// EDIT CAMPGROUND ROUTE
+router.get('/:id/edit', (req, res) => {
+  Spot.findById(req.params.id, (err, foundSpot) => {
+    if (err) {
+      res.redirect('/spots');
+    } else {
+      res.render('spots/edit', { spot: foundSpot });
+    }
+  });
+});
+
+// UPDATE CAMPGROUND ROUTE
+router.put('/:id', (req, res) => {
+  Spot.findByIdAndUpdate(req.params.id, req.body.spot, (err, updatedSpot) => {
+    if (err) {
+      res.redirect('/spots');
+    } else {
+      res.redirect(`/spots/${req.params.id}`);
+    }
+  });
+});
+
 function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
   if (req.isAuthenticated()) {
     return next();

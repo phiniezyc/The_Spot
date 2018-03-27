@@ -1,0 +1,11 @@
+<h2>Edit {{spot.name}}</h2>
+
+<form action='/spots/{{spot._id}}?_method=PUT' method='POST' > 
+{{!-- NOTICE THE _method=PUT  --}}
+    <input type='text' name='spot[name]' value='{{spot.name}}'>
+    <input type='text' name='spot[image]' value='{{spot.image}}'>
+    <input type='text' name='spot[description]' value='{{spot.description}}'>
+    <button>Submit!</button>
+</form>
+
+<a href="/spots/{{spot._id}}">Back</a>
