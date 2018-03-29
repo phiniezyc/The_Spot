@@ -10,10 +10,13 @@ const LocalStrategy = require('passport-local');
 const expressSession = require('express-session');
 const methodOverride = require('method-override');
 const User = require('./models/Users');
+// const Spot = require('./models/Spots');
+// const Comment = require('./models/Comments');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`)); // __dirname just says look for it in the full path for the public folder.  It should be unnecessary, but it's just a precaution in case can't find file!
+
 app.use(methodOverride('_method'));
 
 
@@ -34,6 +37,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+  // Custom middleware function so we don't have to add route restriction to every indivual route
+  res.locals.currentUser = req.user;
+  // this is an easy way to pass a variable to all our views. currentUser is available everywhere
+  next();
+  // without next, will just stop everything, next tells it to continue on, important for middleware
+});
 
 const commentRoutes = require('./controllers/routes/comments');
 const spotRoutes = require('./controllers/routes/spots');

@@ -44,6 +44,14 @@ router.post('/', isLoggedIn, (req, res) => { // protects from someone using post
   });
 });
 
+
+router.get('/:comment_id/edit', (req, res) => {
+  res.send('edit route for comment');
+}); // has to be comment_id because already have :id in the route
+
+
+// middleware
+
 function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
   if (req.isAuthenticated()) {
     return next();

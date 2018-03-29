@@ -22,11 +22,23 @@
                                <em>Submitted By: {{spot.author.username}}</em>
                             </p>
 
-                            <a class='btn btn-warning' href='/spots/{{spot._id}}/edit'>Edit</a>
-                            
-                            <form id='deleteForm' action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
-                                <button class='btn btn-danger'>Delete</button>
-                            </form>
+                            {{#if currentUser}}
+                                {{!-- current user works, but not recognizing mongoose .equals method. --}}
+                                {{!-- {{#and spot.author.id.equals(currentUser._id)}} --}}
+                                    <a class='btn btn-warning' href='/spots/{{spot._id}}/edit'>Edit</a>
+                                    <form id='deleteForm' action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
+                                    <button class='btn btn-danger'>Delete</button>
+                                    </form>
+                                {{!-- {{/and}} --}}
+                            {{/if}}
+                            <p>The spot Is: {{spot.author.id}}</p>
+                            <p>The Current User Is: {{currentUser._id}}</p>
+
+                            {{!-- {{#equal currentUser._id spot.author.id}}
+                                <p>They are equal!</p>
+                                {{else}}
+                                <p>Not equal :(</p>
+                            {{/equal}} --}}
 
                         </div>
                     </div>
@@ -44,9 +56,23 @@
                                     <p>
                                         {{this.text}}
                                     </p>
+
+                                    <a class='btn btn-xs btn-warning'
+                                    href='/spots/{{../spot._id}}/comments/{{this._id}}/edit'> 
+                                    Edit
+                                    </a>
+                                    {{!-- ../spot... gives us access to the global spot because otherwise can't get access outside of the #each block --}}
+
                                 </div>
                             </div>
                             {{/each}}
+
+                        
+
+
+
+
+
                     </div>
                 </div>
             </div>

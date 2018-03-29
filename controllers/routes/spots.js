@@ -3,6 +3,8 @@ const express = require('express');
 
 const router = express.Router();
 const Spot = require('../../models/Spots');
+// const User = require('../../models/Users');
+// const Comment = require('../../models/Comments');
 
 
 router.get('/', (req, res) => {
@@ -25,7 +27,7 @@ router.post('/', isLoggedIn, (req, res) => {
   const { image } = req.body;
   const { description } = req.body;
   const author = {
-    id: req.user.id,
+    id: req.user.id, // changed .id to ._id
     username: req.user.username,
   };
   const newSpot = {
@@ -51,7 +53,7 @@ router.get('/:id', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('spots/show', { spot: foundSpot });
+      res.render('spots/show', { spot: foundSpot, currentUser: req.user }); // added in currentUser for show route
     }
   });
 });
@@ -66,7 +68,7 @@ router.get('/:id/edit', checkSpotOwnership, (req, res) => {
 });
 
 // UPDATE SPOT ROUTE this is the route that actually makes the spot update
-router.put('/:id', (req, res) => {
+router.put('/:id', checkSpotOwnership, (req, res) => {
   Spot.findByIdAndUpdate(req.params.id, req.body.spot, (err, updatedSpot) => {
     if (err) {
       res.redirect('/spots');
@@ -77,7 +79,7 @@ router.put('/:id', (req, res) => {
 });
 
 // DELETE (Destroy) SPOT
-router.delete('/:id', (req, res) => {
+router.delete('/:id', checkSpotOwnership, (req, res) => {
   Spot.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
       res.redirect('/spots');
@@ -102,7 +104,9 @@ function checkSpotOwnership(req, res, next) {
     Spot.findById(req.params.id, (err, foundSpot) => {
       if (err) {
         res.redirect('back');
-      } else if (foundSpot.author.id.equals(req.user._id)) { // has to use this mongoose method because they look the same but one is actually an object and the other a string!
+      } else if (foundSpot.author.id.equals(req.user._id)) {
+        /* has to use this mongoose method because they look the same but one is actually an object
+        and the other a string! foundSpot... is a mongoose object and req.user... a string */
         next();
       } else {
         res.redirect('back');
