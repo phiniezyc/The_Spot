@@ -44,14 +44,31 @@ router.post('/', isLoggedIn, (req, res) => { // protects from someone using post
   });
 });
 
+// COMMENT EDIT ROUTE
+router.get('/:comment_id/edit', (req, res) => { // has to be comment_id because already have :id in the route
+  Comment.findById(req.params.comment_id, (err, foundComment) => {
+    if (err) {
+      res.redirect('back');
+    } else {
+      // we have access to req.params.id because of the long route defined in server.js
+      res.render('comments/edit', { spot_id: req.params.id, comment: foundComment });
+    }
+  });
+});
 
-router.get('/:comment_id/edit', (req, res) => {
-  res.send('edit route for comment');
-}); // has to be comment_id because already have :id in the route
+// COMMENT UPDATE ROUTE
+router.put('/:comment_id', (req, res) => {
+  Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, updatedComment) => {
+    if (err) {
+      res.redirect('back');
+    } else {
+      res.redirect(`/spots/${req.params.id}`);
+    }
+  });
+});
 
 
-// middleware
-
+// MIDDLEWARE
 function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
   if (req.isAuthenticated()) {
     return next();
