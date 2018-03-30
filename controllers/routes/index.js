@@ -55,7 +55,8 @@ router.get('/login', (req, res) => {
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/spots',
   failureRedirect: '/login',
-}), (req, res) => {}); // this callback doesn't do anything, but left it so can see how the middleware works
+}), (req, res) => {});
+// this callback doesn't do anything, but left it so can see how the middleware works
 
 
 router.get('/logout', (req, res) => {
@@ -63,11 +64,11 @@ router.get('/logout', (req, res) => {
   res.redirect('/spots');
 });
 
-function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
+// function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   res.redirect('/login');
+// }
 
 module.exports = router;

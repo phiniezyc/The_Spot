@@ -3,8 +3,7 @@ const express = require('express');
 
 const router = express.Router();
 const Spot = require('../../models/Spots');
-// const User = require('../../models/Users');
-// const Comment = require('../../models/Comments');
+const middleware = require('../../middleware'); // index.js is a special name! Don't need to specify the specific file name if it's named index.js. Just require the parent file!
 
 
 router.get('/', (req, res) => {
@@ -22,7 +21,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', isLoggedIn, (req, res) => {
+router.post('/', middleware.isLoggedIn, (req, res) => {
   const { name } = req.body;
   const { image } = req.body;
   const { description } = req.body;
@@ -43,7 +42,7 @@ router.post('/', isLoggedIn, (req, res) => {
   });
 });
 
-router.get('/new', isLoggedIn, (req, res) => {
+router.get('/new', middleware.isLoggedIn, (req, res) => {
   res.render('spots/new');
 });
 
@@ -60,7 +59,7 @@ router.get('/:id', (req, res) => {
 
 
 // EDIT SPOT ROUTE this gets the update form page and data from that spot
-router.get('/:id/edit', checkSpotOwnership, (req, res) => {
+router.get('/:id/edit', middleware.checkSpotOwnership, (req, res) => {
   // is user logged in?
   Spot.findById(req.params.id, (err, foundSpot) => {
     res.render('spots/edit', { spot: foundSpot });
@@ -68,7 +67,7 @@ router.get('/:id/edit', checkSpotOwnership, (req, res) => {
 });
 
 // UPDATE SPOT ROUTE this is the route that actually makes the spot update
-router.put('/:id', checkSpotOwnership, (req, res) => {
+router.put('/:id', middleware.checkSpotOwnership, (req, res) => {
   Spot.findByIdAndUpdate(req.params.id, req.body.spot, (err, updatedSpot) => {
     if (err) {
       res.redirect('/spots');
@@ -79,7 +78,7 @@ router.put('/:id', checkSpotOwnership, (req, res) => {
 });
 
 // DELETE (Destroy) SPOT
-router.delete('/:id', checkSpotOwnership, (req, res) => {
+router.delete('/:id', middleware.checkSpotOwnership, (req, res) => {
   Spot.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
       res.redirect('/spots');
@@ -92,28 +91,29 @@ router.delete('/:id', checkSpotOwnership, (req, res) => {
 
 // Middleware
 
-function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
+// function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   res.redirect('/login');
+// }
 
-function checkSpotOwnership(req, res, next) {
-  if (req.isAuthenticated()) {
-    Spot.findById(req.params.id, (err, foundSpot) => {
-      if (err) {
-        res.redirect('back');
-      } else if (foundSpot.author.id.equals(req.user._id)) {
-        /* has to use this mongoose method because they look the same but one is actually an object
-        and the other a string! foundSpot... is a mongoose object and req.user... a string */
-        next();
-      } else {
-        res.redirect('back');
-      }
-    });
-  } else {
-    res.redirect('back');
-  }
-}
+// function checkSpotOwnership(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     Spot.findById(req.params.id, (err, foundSpot) => {
+//       if (err) {
+//         res.redirect('back');
+//       } else if (foundSpot.author.id.equals(req.user._id)) {
+//         /* has to use this mongoose method because they look the same but one is actually an object
+//         and the other a string! foundSpot... is a mongoose object and req.user... a string */
+//         next();
+//       } else {
+//         res.redirect('back');
+//       }
+//     });
+//   } else {
+//     res.redirect('back');
+//   }
+// }
+
 module.exports = router;
