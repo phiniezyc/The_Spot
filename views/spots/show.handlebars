@@ -26,19 +26,12 @@
                                 {{!-- current user works, but not recognizing mongoose .equals method. --}}
                                 {{!-- {{#and spot.author.id.equals(currentUser._id)}} --}}
                                     <a class='btn btn-warning' href='/spots/{{spot._id}}/edit'>Edit</a>
-                                    <form id='deleteForm' action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
+                                    <form class='deleteForm' action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
                                     <button class='btn btn-danger'>Delete</button>
                                     </form>
                                 {{!-- {{/and}} --}}
                             {{/if}}
-                            <p>The spot Is: {{spot.author.id}}</p>
-                            <p>The Current User Is: {{currentUser._id}}</p>
-
-                            {{!-- {{#equal currentUser._id spot.author.id}}
-                                <p>They are equal!</p>
-                                {{else}}
-                                <p>Not equal :(</p>
-                            {{/equal}} --}}
+                           
 
                         </div>
                     </div>
@@ -57,20 +50,19 @@
                                         {{this.text}}
                                     </p>
 
+                                    {{!-- ../spot... gives us access to the global spot because otherwise can't get access outside of the #each block --}}
                                     <a class='btn btn-xs btn-warning'
                                     href='/spots/{{../spot._id}}/comments/{{this._id}}/edit'> 
                                     Edit
                                     </a>
-                                    {{!-- ../spot... gives us access to the global spot because otherwise can't get access outside of the #each block --}}
+                                    {{!-- Have to use a form because anchor tags can only do GET requests --}}
+                                    <form class='deleteForm' action='/spots/{{../spot._id}}/comments/{{this._id}}?_method=DELETE' method='POST'>
+                                        <input type='submit' class='btn btn-xs btn-danger' value='delete' >
+                                    </form>
 
                                 </div>
                             </div>
                             {{/each}}
-
-                        
-
-
-
 
 
                     </div>
