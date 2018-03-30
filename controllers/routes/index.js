@@ -4,24 +4,24 @@ const express = require('express');
 const router = express.Router();
 
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
+// const LocalStrategy = require('passport-local');
 const User = require('../../models/Users');
 
 
-const app = express();
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// const app = express();
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next) => {
-  // Custom middleware function so we don't have to add route restriction to every indivual route
-  res.locals.currentUser = req.user;
-  // this is an easy way to pass a variable to all our views. currentUser is available everywhere
-  next();
-  // without next, will just stop everything, next tells it to continue on, important for middleware
-});
+// app.use((req, res, next) => {
+//   // Custom middleware function so we don't have to add route restriction to every indivual route
+//   res.locals.currentUser = req.user;
+//   // this is an easy way to pass a variable to all our views. currentUser is available everywhere
+//   next();
+//   // without next, will just stop everything, next tells it to continue on, important for middleware
+// });
 
 
 router.get('/', (req, res) => {
