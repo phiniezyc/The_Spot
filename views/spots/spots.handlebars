@@ -1,25 +1,34 @@
-<h1>Spots PAGE</h1>
 <div class='container'>
 <header class='jumbotron'>
-  <div>
-  <h1>Hi, Welcome to Spots!</h1>
-  <h3>View Ratings for Atlanta spots!</h3>
-  <p>
-    <a class='btn btn-primary btn-large' href="/spots/new">Add New Spot</a>
-  </p>
+  <div class='container'>
+    <h1>Hi, Welcome to Spots!</h1>
+    <h3>View Ratings for Atlanta spots!</h3>
+    <p>
+      <a class='btn btn-primary btn-large' href="/spots/new">Add New Spot</a>
+    </p>
   </div>
 </header>
 
-
-<div class="spotsList">
-  {{#each spots}}
-    <h1> {{this.name}}</h1>
-    <img src='{{this.image}}'> 
-    <p>
-      <a href="/spots/{{this._id}}" class="btn btn-primary">More Info</a>
-    </p>
-  {{/each}}
+<div class='row'>
+  <div class="spotsList">
+    {{#each spots}}
+      <div class='col-md-3 col-sm-6'>
+        <div class='thumbnail'>
+          
+      <img src='{{this.image}}'> 
+      <div class='caption'>
+      <h4> {{this.name}}</h4>
+      </div>
+      <p>
+        <a href="/spots/{{this._id}}" class="btn btn-primary">More Info</a>
+      </p>
+      </div>
+      </div>
+    {{/each}}
+  </div>
 </div>
+
+
 
 
 

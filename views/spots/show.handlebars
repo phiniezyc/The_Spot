@@ -24,7 +24,7 @@
 
                             {{!-- {{#if currentUser}} --}}
                                 {{!-- current user works, but not recognizing mongoose .equals method. --}}
-                                {{!-- {{#if ../spot.author.id.equals(this._id)}} --}}
+                                {{!-- {{#if ../spot.author.id.equals(../currentUser._id)}} --}}
                                     <a class='btn btn-warning' href='/spots/{{spot._id}}/edit'>Edit</a>
                                     <form class='deleteForm' action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
                                     <button class='btn btn-danger'>Delete</button>
