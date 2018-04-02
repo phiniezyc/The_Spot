@@ -18,19 +18,19 @@
                             <h4 class='pull-right'>Hard Coded Price: $100</h4>
                             <h4><a>{{spot.name}}</a></h4>
                             <p>{{spot.description}}</p>
-                            <p>
+                            <p >
                                <em>Submitted By: {{spot.author.username}}</em>
                             </p>
 
-                            {{!-- {{#if currentUser}} --}}
+                            {{#if currentUser}}
                                 {{!-- current user works, but not recognizing mongoose .equals method. --}}
-                                {{!-- {{#if ../spot.author.id.equals(../currentUser._id)}} --}}
+                                {{!-- {{#if ../spot.author.id.equals(this._id)}} --}}
                                     <a class='btn btn-warning' href='/spots/{{spot._id}}/edit'>Edit</a>
                                     <form class='deleteForm' action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
                                     <button class='btn btn-danger'>Delete</button>
                                     </form>
                                 {{!-- {{/if}} --}}
-                            {{!-- {{/if}} --}}
+                            {{/if}}
                            
 
                         </div>

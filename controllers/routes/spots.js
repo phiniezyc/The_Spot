@@ -50,9 +50,9 @@ router.get('/:id', (req, res) => {
   // finding the spot, populating the comments on that spot, THEN executiring the query we made
   Spot.findById(req.params.id).populate('comments').exec((err, foundSpot) => {
     if (err) {
-      console.log(err);  // ../spot.author.id.equals(../currentUser._id
+      console.log(err);
     } else {
-      res.render('spots/show', { spot: foundSpot, currentUser: req.user }); // added in currentUser for show route
+      res.render('spots/show', { spot: foundSpot });
     }
   });
 });

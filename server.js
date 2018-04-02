@@ -11,8 +11,11 @@ const LocalStrategy = require('passport-local');
 const expressSession = require('express-session');
 const methodOverride = require('method-override');
 const User = require('./models/Users');
-// const Spot = require('./models/Spots');
-// const Comment = require('./models/Comments');
+
+
+const commentRoutes = require('./controllers/routes/comments');
+const spotRoutes = require('./controllers/routes/spots');
+const indexRoutes = require('./controllers/routes/index');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,6 +41,7 @@ app.use(expressSession({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -46,13 +50,11 @@ app.use((req, res, next) => {
   // Custom middleware function so we don't have to add route restriction to every indivual route
   res.locals.currentUser = req.user;
   // this is an easy way to pass a variable to all our views. currentUser is available everywhere
+  res.locals.message = req.flash('error');
   next();
   // without next, will just stop everything, next tells it to continue on, important for middleware
 });
 
-const commentRoutes = require('./controllers/routes/comments');
-const spotRoutes = require('./controllers/routes/spots');
-const indexRoutes = require('./controllers/routes/index');
 
 app.use('/', indexRoutes);
 app.use('/spots', spotRoutes); // '/spots' shortens the routes in spots file. Everything starts w/ /spots
