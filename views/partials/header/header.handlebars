@@ -7,11 +7,19 @@
             <ul class='nav navbar-nav navbar-right'>
 
                 {{#if currentUser}}
-                    <li><a href="#">Signed In As {{currentUser.username}}</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                {{else }} 
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/register">Sign Up</a></li>
+                <li>
+                    <a href="#">Signed In As {{currentUser.username}}</a>
+                </li>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
+                {{else }}
+                <li>
+                    <a href="/login">Login</a>
+                </li>
+                <li>
+                    <a href="/register">Sign Up</a>
+                </li>
                 {{/if }}
 
             </ul>
@@ -19,4 +27,26 @@
     </div>
 </nav>
 
-<h2>{{message}}</h2>
+<div class='container'>
+ 
+{{#if error}}
+    {{!-- {{#if ../error.length > 0 }} --}}
+        <div class='alert alert-danger' role='alert'>{{error}}</div>
+    {{!-- {{/if}} --}}
+{{/if}}
+
+
+{{#if success}}
+    {{!-- {{#if success.length > 0}} --}}
+         <div class='alert alert-success' role='alert'>{{success}}</div>
+    {{!-- {{/if}} --}}
+{{/if}}
+
+</div>
+
+
+{{!-- <h1>{{#test}}
+{{test}}
+
+{{/test}}
+</h1> --}}

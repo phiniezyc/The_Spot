@@ -17,6 +17,8 @@ const commentRoutes = require('./controllers/routes/comments');
 const spotRoutes = require('./controllers/routes/spots');
 const indexRoutes = require('./controllers/routes/index');
 
+const hbsHelpers = require('./helpers/helpers');
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`)); // __dirname just says look for it in the full path for the public folder.  It should be unnecessary, but it's just a precaution in case can't find file!
@@ -28,6 +30,7 @@ app.use(flash());
 
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
+  helpers: hbsHelpers,
 }));
 
 app.set('view engine', 'handlebars'); // setting this means we can leave off .handlebars on our handlebars files
@@ -50,7 +53,8 @@ app.use((req, res, next) => {
   // Custom middleware function so we don't have to add route restriction to every indivual route
   res.locals.currentUser = req.user;
   // this is an easy way to pass a variable to all our views. currentUser is available everywhere
-  res.locals.message = req.flash('error');
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('succes');
   next();
   // without next, will just stop everything, next tells it to continue on, important for middleware
 });
