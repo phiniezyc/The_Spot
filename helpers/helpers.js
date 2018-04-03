@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  customif() {
-    console.log('testing!');
+  test() {
+    return 'helper is connected!';
   },
 };
