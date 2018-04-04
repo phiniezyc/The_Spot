@@ -38,10 +38,11 @@ router.post('/register', (req, res) => {
   const newUser = new User({ username: req.body.username });
   User.register(newUser, req.body.password, (err, user) => {
     if (err) {
-      console.log(err);
-      return res.render('register'); // return is a good way to just exit the callback if we get an error
+      req.flash('error', err.message); // we could write our custom errors but why not just use mongoose instead.
+      return res.redirect('register'); // return is a good way to just exit the callback if we get an error
     }
     passport.authenticate('local')(req, res, () => {
+      req.flash('success', `Welcome to YelpCamp ${user.username}`);
       res.redirect('spots');
     });
   });

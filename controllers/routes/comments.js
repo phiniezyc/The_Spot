@@ -28,6 +28,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => { // protects from someone
     } else {
       Comment.create(req.body.comment, (err, comment) => {
         if (err) {
+          req.flash('error', 'Whoops, it looks like something went wrong');
           console.log(err);
         } else {
           // add username and id to comment
@@ -38,6 +39,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => { // protects from someone
           //  spot here refers to the spot returned after finding Spot by id in this post route
           spot.comments.push(comment);
           spot.save();
+          req.flash('sucess', 'Successfully added comment');
           res.redirect(`/spots/${spot._id}`);
         }
       });
@@ -75,6 +77,7 @@ router.delete('/:comment_id', middleware.checkCommentOwnership, (req, res) => {
     if (err) {
       res.redirect('back');
     } else {
+      req.flash('success', 'Comment deleted');
       res.redirect(`/spots/${req.params.id}`);
     }
   });

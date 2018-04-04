@@ -11,12 +11,14 @@ middlewareObj.checkSpotOwnership = (req, res, next) => {
   if (req.isAuthenticated()) {
     Spot.findById(req.params.id, (err, foundSpot) => {
       if (err) {
+        req.flash('error', 'Spot not found');
         res.redirect('back');
       } else if (foundSpot.author.id.equals(req.user._id)) {
         /* has to use this mongoose method because they look the same but one is actually an object
               and the other a string! foundSpot... is a mongoose object and req.user... a string */
         next();
       } else {
+        req.flash('error', 'You don\'t have permission to do that'); // user probably never sees this but to be sure
         res.redirect('back');
       }
     });
@@ -36,10 +38,12 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
             req.user... a string.  _.id is stored in req.user thanks to passport */
         next();
       } else {
+        req.flash('error', 'Whoops, you don\'t have permission to do that');
         res.redirect('back');
       }
     });
   } else {
+    req.flash('error', 'You need to be logged in to do that');
     res.redirect('back');
   }
 };
@@ -49,7 +53,7 @@ middlewareObj.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.flash('error', 'Please log in first!'); // Must be placed BEFORE redirect
+  req.flash('error', 'You need to be logged in to do that'); // Must be placed BEFORE redirect
   res.redirect('/login');
 };
 
