@@ -10,7 +10,8 @@ const middlewareObj = {};
 middlewareObj.checkSpotOwnership = (req, res, next) => {
   if (req.isAuthenticated()) {
     Spot.findById(req.params.id, (err, foundSpot) => {
-      if (err) {
+      if (err || !foundSpot) {
+        // or handles all other errors besides what mongoose shows "null, etc..." otherwise breaks app for everyone in prouction!
         req.flash('error', 'Spot not found');
         res.redirect('back');
       } else if (foundSpot.author.id.equals(req.user._id)) {
@@ -30,7 +31,8 @@ middlewareObj.checkSpotOwnership = (req, res, next) => {
 middlewareObj.checkCommentOwnership = (req, res, next) => {
   if (req.isAuthenticated()) {
     Comment.findById(req.params.comment_id, (err, foundComment) => {
-      if (err) {
+      if (err || !foundComment) {
+        req.flash('error', 'Comment not found');
         res.redirect('back');
       } else if (foundComment.author.id.equals(req.user._id)) {
         /* must use .equals mongoose method because look the same but one actually object

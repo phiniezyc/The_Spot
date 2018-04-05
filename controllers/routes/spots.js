@@ -49,8 +49,9 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 router.get('/:id', (req, res) => {
   // finding the spot, populating the comments on that spot, THEN executiring the query we made
   Spot.findById(req.params.id).populate('comments').exec((err, foundSpot) => {
-    if (err) {
-      console.log(err);
+    if (err || !foundSpot) {
+      req.flash('error', 'Spot not found');
+      res.redirect('back');
     } else {
       res.render('spots/show', { spot: foundSpot });
     }
