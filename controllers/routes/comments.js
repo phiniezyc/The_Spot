@@ -12,8 +12,9 @@ const middleware = require('../../middleware'); // index.js is a special name! D
 
 router.get('/new', middleware.isLoggedIn, (req, res) => {
   Spot.findById(req.params.id, (err, spot) => {
-    if (err) {
-      console.log(err);
+    if (err || !spot) {
+      req.flash('error', 'Spot not found');
+      res.redirect('back');
     } else {
       res.render('comments/new', { spot });
     }
