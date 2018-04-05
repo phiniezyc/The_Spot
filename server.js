@@ -17,7 +17,7 @@ const commentRoutes = require('./controllers/routes/comments');
 const spotRoutes = require('./controllers/routes/spots');
 const indexRoutes = require('./controllers/routes/index');
 
-const hbsHelpers = require('./helpers/helpers');
+const hbsHelpers = require('./helpers/hbsHelpers');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,7 +54,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   // this is an easy way to pass a variable to all our views. currentUser is available everywhere
   res.locals.error = req.flash('error');
-  res.locals.success = req.flash('succes');
+  res.locals.success = req.flash('success');
   next();
   // without next, will just stop everything, next tells it to continue on, important for middleware
 });
