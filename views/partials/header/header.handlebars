@@ -28,26 +28,18 @@
 </nav>
 
 <div class='container'>
- 
-{{#if error}}
-    {{!-- {{#if ../error.length > 0 }} --}}
-        <div class='alert alert-danger' role='alert'>{{error}}</div>
-    {{!-- {{/if}} --}}
-{{/if}}
 
-
-{{#if success}}
-    {{!-- {{#if success.length > 0}} --}}
-         <div class='alert alert-success' role='alert'>{{success}}</div>
-    {{!-- {{/if}} --}}
-{{/if}}
+    {{#if error}}
+    <div class='alert alert-danger' role='alert'>{{error}}</div>
+    {{/if}} {{#if success }}
+    <div class='alert alert-success' role='alert'>{{success}}</div>
+    {{/if}}
 
 </div>
 
 
+{{!-- this is how you implement a custom helper function and pass in parameter (success). We don't need it but leaving in
+for future reference--}} {{!--
 <h1>
-{{#test success }}
-{{/test}}
-</h1>
-
-
+    {{#test success }} {{/test}}
+</h1> --}}
