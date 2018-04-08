@@ -10,7 +10,8 @@ body {
     left: 0;
     z-index: 0;
     list-style: none;
-    margin: 0;
+    margin: 50px 0px 0px  0px;
+    /* margin-top: 50px; */
     padding: 0;
   }
 
@@ -28,9 +29,7 @@ body {
     animation: imageAnimation 50s linear infinite; 
   }
 
-  /* .slideshow li:nth-child(1) { 
-    background-image: url(http://i.imgur.com/K3mPv14.jpg); 
-  } */
+  
   .slideshow li:nth-child(1) { 
     background-image: url('../../img/2glasses.jpeg');
   }
