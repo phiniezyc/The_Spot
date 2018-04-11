@@ -35,9 +35,14 @@
     text-align: center;
 }
 
+#register-page-heading {
+    text-align: center;
+    margin: 0 0 15vh 0;
+}
 
 #createSpotHeading {
     text-align: center;
    
 }
+
 
