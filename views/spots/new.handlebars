@@ -4,7 +4,7 @@
     <h1 id='createSpotHeading' class="col-lg-12 text-center">Create a New Spot</h1>
 </div>
     <div class="row">
-    <form class="form-group-lg col-lg-6 center-block" action='/spots' method='POST'>
+    <form id="newSpotForm" class="form-group-lg col-lg-6 center-block" action='/spots' method='POST'>
         <div class="form-group">
             <input class="form-control" type='text' name='name' placeholder="name">
         </div>
@@ -18,10 +18,9 @@
             <button class="btn btn-lg btn-primary btn-block">Submit!</button>
         </div>
     </form>
-    <div class="row">
-        <div class="col-lg-12 text-center"> 
-    <a href="/spots">Back</a>
-    </div>
+    
+    <div class="col-lg-12 text-center clearfix"> 
+        <a href="/spots">Back</a>
     </div>
     </div>
 
