@@ -4,6 +4,7 @@
 {{!-- NOTICE THE _method=PUT  --}}
     <input type='text' name='spot[name]' value='{{spot.name}}'>
     <input type='text' name='spot[image]' value='{{spot.image}}'>
+    <input type='number' name='spot[cost]' value='{{spot.cost}}' step="0.01" min="0" required>
     <input type='text' name='spot[description]' value='{{spot.description}}'>
     <button>Submit!</button>
 </form>

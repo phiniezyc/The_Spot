@@ -7,6 +7,7 @@ const spotSchema = new Schema({
   image: String,
   description: String,
   // this could be called author or user, doesn't really matter
+  cost: Number,
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
