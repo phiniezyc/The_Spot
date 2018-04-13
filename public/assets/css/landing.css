@@ -80,3 +80,7 @@ body {
     color: #fff;
 }
 
+#landing-footer {
+  display: none;
+  /* hidding the header on the landing page only */
+}
