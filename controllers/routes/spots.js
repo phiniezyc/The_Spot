@@ -22,15 +22,13 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', middleware.isLoggedIn, (req, res) => {
-  const { name } = req.body;
-  const { image } = req.body;
-  const { description } = req.body;
+  const { name, image, description, cost } = req.body;
   const author = {
     id: req.user.id, // changed .id to ._id
     username: req.user.username,
   };
   const newSpot = {
-    name, image, description, author,
+    name, image, description, author, cost,
   };
 
   Spot.create(newSpot, (err, newCreatedSpot) => {
