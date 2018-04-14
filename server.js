@@ -56,7 +56,7 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
   next();
-  // without next, will just stop everything, next tells it to continue on, important for middleware
+  // Without next, will just stop everything, next tells it to continue on, important for middleware
 });
 
 
@@ -64,7 +64,7 @@ app.use('/', indexRoutes);
 app.use('/spots', spotRoutes); // '/spots' shortens the routes in spots file. Everything starts w/ /spots
 app.use('/spots/:id/comments', commentRoutes);
 // Wherever we have a param value (like :id) as a prefix to the routes (like commentRoutes),
-// use mergeParams (in the file) for those routes to get the value of :id passed in to that router.
+// Use mergeParams (in the file) for those routes to get the value of :id passed in to that router.
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/The_Spot');
