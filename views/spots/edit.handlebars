@@ -1,7 +1,7 @@
 <h2>Edit {{spot.name}}</h2>
 
 <form action='/spots/{{spot._id}}?_method=PUT' method='POST' > 
-{{!-- NOTICE THE _method=PUT  --}}
+{{!-- NOTICE _method=PUT is required to edit --}}
     <input type='text' name='spot[name]' value='{{spot.name}}'>
     <input type='text' name='spot[image]' value='{{spot.image}}'>
     <input type='number' name='spot[cost]' value='{{spot.cost}}' step="0.01" min="0" required>

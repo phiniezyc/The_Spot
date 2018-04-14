@@ -28,7 +28,7 @@
 </nav>
 
 <div class='container'>
-    {{!-- handlebars if behaves differently than JS where an empty [] is truthy in JS it is falsey in handlebars.  This was done so the templating engine would behave more intuitively.  It's a gotcha though! --}}
+    {{!-- handlebars if behaves differently than JS where an empty [] is truthy, it is falsey in handlebars.  This was done so the templating engine would behave more intuitively.  It's a gotcha though! --}}
     {{#if error}}
     <div class='alert alert-danger' role='alert'>{{error}}</div>
     {{/if}} {{#if success }}
