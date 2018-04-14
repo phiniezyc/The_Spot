@@ -54,4 +54,8 @@
     color: rgb(136, 148, 136);
 }
 
-
+#footer-div h1 {
+    background-color: silver;
+    margin-bottom: 0px;
+    text-align: center;
+}

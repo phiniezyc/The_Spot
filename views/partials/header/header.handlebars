@@ -28,7 +28,7 @@
 </nav>
 
 <div class='container'>
-    {{!-- handlebars if behaves differently than JS where an empty [] is truthy, it is falsey in handlebars.  This was done so the templating engine would behave more intuitively.  It's a gotcha though! --}}
+    {{!-- handlebars if behaves differently than JS where an empty [] is truthy, it is falsey in handlebars.  This was done so templating engine behaves more intuitively.  It's a gotcha though! --}}
     {{#if error}}
     <div class='alert alert-danger' role='alert'>{{error}}</div>
     {{/if}} {{#if success }}
@@ -37,9 +37,8 @@
 
 </div>
 
-
-{{!-- this is how you implement a custom helper function and pass in parameter (success). We don't need it but leaving in
-for future reference--}} {{!--
+{{!-- this is how you implement a custom helper function and pass in parameter (success). We don't need it but leaving in for future reference--}} 
+{{!--
 <h1>
     {{#test success }} {{/test}}
 </h1> --}}
