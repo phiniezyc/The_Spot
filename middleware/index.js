@@ -3,7 +3,8 @@ const Comment = require('../models/Comments');
 
 /* this is our middleware file.
 We could have put these all inside the middleware object as key: value pairs
-but this is to demonstrate another way of doing this after the object has been declared. */
+but this is to demonstrate another way of doing this after the object has been declared.
+I might change */
 
 const middlewareObj = {};
 
