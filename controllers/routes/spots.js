@@ -3,12 +3,10 @@ const express = require('express');
 
 const router = express.Router();
 const Spot = require('../../models/Spots');
-const middleware = require('../../middleware'); // index.js is a special name! Don't need to specify the specific file name if it's named index.js. Just require the parent file!
+const middleware = require('../../middleware'); // index.js is a special name. Don't need to specify the specific file name if named index.js. Just require the parent file.
 
 
 router.get('/', (req, res) => {
-  // console.log(req.user);
-
   Spot.find({}, (err, allSpots) => {
     if (err) {
       console.log(err);
@@ -45,7 +43,7 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  // finding the spot, populating the comments on that spot, THEN executiring the query we made
+  // finding the spot, populating the comments on that spot, THEN executing the query
   Spot.findById(req.params.id).populate('comments').exec((err, foundSpot) => {
     if (err || !foundSpot) {
       req.flash('error', 'Spot not found');
@@ -59,7 +57,7 @@ router.get('/:id', (req, res) => {
 
 // EDIT SPOT ROUTE this gets the update form page and data from that spot
 router.get('/:id/edit', middleware.checkSpotOwnership, (req, res) => {
-  // is user logged in?
+  // Is user logged in?
   Spot.findById(req.params.id, (err, foundSpot) => {
     res.render('spots/edit', { spot: foundSpot });
   });
@@ -87,32 +85,5 @@ router.delete('/:id', middleware.checkSpotOwnership, (req, res) => {
   });
 });
 
-
-// Middleware
-
-// function isLoggedIn(req, res, next) { // Can use this on ANY page we want to restrict
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   res.redirect('/login');
-// }
-
-// function checkSpotOwnership(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     Spot.findById(req.params.id, (err, foundSpot) => {
-//       if (err) {
-//         res.redirect('back');
-//       } else if (foundSpot.author.id.equals(req.user._id)) {
-//         /* has to use this mongoose method because they look the same but one is actually an object
-//         and the other a string! foundSpot... is a mongoose object and req.user... a string */
-//         next();
-//       } else {
-//         res.redirect('back');
-//       }
-//     });
-//   } else {
-//     res.redirect('back');
-//   }
-// }
 
 module.exports = router;
