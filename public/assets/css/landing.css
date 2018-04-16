@@ -29,7 +29,6 @@ body {
     animation: imageAnimation 50s linear infinite; 
   }
 
-  
   .slideshow li:nth-child(1) { 
     background-image: url('../../img/2glasses.jpeg');
   }
