@@ -1,8 +1,7 @@
 <div class="container">
     <div class="row">
         <h2 class="formPageAlignment col-xs-12 text-center">Edit Comment for {{spot.name}}</h2>
-
-        <form class="form-group-lg col-xs-6 col-xs-offset-3" action='/spots/{{spot_id}}/comments/{{comment._id}}?_method=PUT' method='POST'>
+        <form class="form-group-lg col-xs-6 col-xs-offset-3" action='/spots/{{spot.id}}/comments/{{comment._id}}?_method=PUT' method='POST'>
             <div class="form-group">
                 <input class="form-control" type='text' name='comment[text]' value='{{comment.text}}'>
             </div>

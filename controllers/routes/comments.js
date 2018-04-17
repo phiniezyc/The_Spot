@@ -50,8 +50,8 @@ router.post('/', middleware.isLoggedIn, (req, res) => { // protects from someone
 
 // COMMENT EDIT ROUTE
 router.get('/:comment_id/edit', middleware.checkCommentOwnership, (req, res) => { // has to be comment_id because already have :id in the route
-  Spot.findById(req.params.id, (err, foundSpot) => {
-    if (err || !foundSpot) {
+  Spot.findById(req.params.id, (err, spot) => {
+    if (err || !spot) {
       req.flash('error', 'No spot found');
       return res.redirect('back');
     }
@@ -60,7 +60,7 @@ router.get('/:comment_id/edit', middleware.checkCommentOwnership, (req, res) => 
         res.redirect('back');
       } else {
         // we have access to req.params.id because of long route defined in server.js
-        res.render('comments/edit', { spot_id: req.params.id, comment: foundComment });
+        res.render('comments/edit', { spot, comment: foundComment });
       }
     });
   });
