@@ -1,12 +1,31 @@
-<h2>Edit {{spot.name}}</h2>
+<div class="container">
+    <div class="row">
+        <h2 class="col-xs-12 text-center">Edit {{spot.name}}</h2>
 
-<form action='/spots/{{spot._id}}?_method=PUT' method='POST' > 
-{{!-- NOTICE _method=PUT is required to edit --}}
-    <input type='text' name='spot[name]' value='{{spot.name}}'>
-    <input type='text' name='spot[image]' value='{{spot.image}}'>
-    <input type='number' name='spot[cost]' value='{{spot.cost}}' step="0.01" min="0" required>
-    <input type='text' name='spot[description]' value='{{spot.description}}'>
-    <button>Submit!</button>
-</form>
+        <form class="form-group-lg col-xs-6 col-xs-offset-3" action='/spots/{{spot._id}}?_method=PUT' method='POST'>
+            {{!-- NOTICE _method=PUT is required to edit --}}
+            <div>
+                <input type='text' name='spot[name]' value='{{spot.name}}'>
+            </div>
 
-<a href="/spots/{{spot._id}}">Back</a>
+            <div>
+                <input type='text' name='spot[name]' value='{{spot.name}}'>
+            </div>
+            <div>
+                <input type='text' name='spot[image]' value='{{spot.image}}'>
+            </div>
+
+            <div>
+                <input type='number' name='spot[cost]' value='{{spot.cost}}' step="0.01" min="0" required>
+            </div>
+            <div>
+                <input type='text' name='spot[description]' value='{{spot.description}}'>
+            </div>
+            <div>
+                <button>Submit!</button>
+            </div>
+        </form>
+    </div>
+    <a href="/spots/{{spot._id}}">Back</a>
+
+</div>
