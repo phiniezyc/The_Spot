@@ -30,7 +30,11 @@
     display: inline;
 }
 
-
+.formPageAlignment {
+    text-align: center;
+    margin-bottom: 40px;
+   
+}
 
 #login-header {
     text-align: center;
@@ -40,12 +44,6 @@
 #register-page-heading {
     text-align: center;
     margin: 0 0 15vh 0;
-}
-
-.formPageAlignment {
-    text-align: center;
-    margin-bottom: 40px;
-   
 }
 
 #spotPriceDisplay {
