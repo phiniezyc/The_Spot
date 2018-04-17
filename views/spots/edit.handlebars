@@ -5,24 +5,24 @@
         <form class="form-group-lg col-xs-6 col-xs-offset-3" action='/spots/{{spot._id}}?_method=PUT' method='POST'>
             {{!-- NOTICE _method=PUT is required to edit --}}
             <div class="form-group">
-                <input type='text' name='spot[name]' value='{{spot.name}}'>
+                <input class="form-control" type='text' name='spot[name]' value='{{spot.name}}'>
             </div>
 
             <div class="form-group">
-                <input type='text' name='spot[name]' value='{{spot.name}}'>
+                <input class="form-control" type='text' name='spot[name]' value='{{spot.name}}'>
             </div>
             <div class="form-group">
-                <input type='text' name='spot[image]' value='{{spot.image}}'>
+                <input class="form-control" type='text' name='spot[image]' value='{{spot.image}}'>
             </div>
 
             <div class="form-group">
-                <input type='number' name='spot[cost]' value='{{spot.cost}}' step="0.01" min="0" required>
+                <input class="form-control" type='number' name='spot[cost]' value='{{spot.cost}}' step="0.01" min="0" required>
             </div>
             <div class="form-group">
-                <input type='text' name='spot[description]' value='{{spot.description}}'>
+                <input class="form-control" type='text' name='spot[description]' value='{{spot.description}}'>
             </div>
             <div class="form-group">
-                <button>Submit!</button>
+                <button class="btn btn-lg btn-primary btn-block">Submit!</button>
             </div>
         </form>
     </div>
