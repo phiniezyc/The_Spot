@@ -2,7 +2,7 @@
     <div class="row">
         <h2 class="formPageAlignment col-xs-12 text-center">New Comment for {{spot.name}}</h2>
 
-        <form class="form-group-lg col-xs-6 col-xs-offset-3 " action='/spots/{{spot.id}}/comments' method='POST'>
+        <form class="form-group-lg col-xs-6 col-xs-offset-3" action='/spots/{{spot.id}}/comments' method='POST'>
             <div class="form-group">
                 <input class="form-control" type='text' name='comment[text]' placeholder="text"> {{!--
                 <input type='text' name='comment[author]' placeholder="author"> --}}</div>
