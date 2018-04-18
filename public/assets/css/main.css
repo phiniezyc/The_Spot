@@ -3,6 +3,8 @@
     padding: 0%;
     box-sizing: border-box;
 }
+
+
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -36,6 +38,10 @@
    
 }
 
+.footer-text {
+    font-size: 10px;
+}
+
 #login-header {
     text-align: center;
     margin: 0 0 15vh 0;
@@ -56,3 +62,5 @@
     margin-bottom: 0px;
     text-align: center;
 }
+
+
