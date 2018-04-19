@@ -10,59 +10,52 @@
                         <li class="list-group-item">Item 3</li>
                     </div>
                 </div>
-
                 <div class="col-md-9">
-                    <div class='thumbnail'> 
-                        <img class='img-responsive' src='{{spot.image}}'> 
+                    <div class='thumbnail'>
+                        <img class='img-responsive' src='{{spot.image}}'>
                         <div class='caption-full'>
                             <h4 id='spotPriceDisplay' class='pull-right'>${{spot.cost}}/person</h4>
-                            <h4><a>{{spot.name}}</a></h4>
+                            <h4>
+                                <a>{{spot.name}}</a>
+                            </h4>
                             <p>{{spot.description}}</p>
                             <p>
-                               <em>Submitted by: {{spot.author.username}}</em>
+                                <em>Submitted by: {{spot.author.username}}</em>
                             </p>
-
-                            {{#if currentUser}}
-                                {{!-- current user works, but not recognizing mongoose .equals method. --}}
-                                {{!-- {{#if ../spot.author.id.equals(this._id)}} --}}
-                                    <a class='btn btn-warning' href='/spots/{{spot._id}}/edit'>Edit</a>
-                                    <form class='deleteForm' action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
-                                    <button class='btn btn-danger'>Delete</button>
-                                    </form>
-                                {{!-- {{/if}} --}}
-                            {{/if}}
-                           
+                            {{#if currentUser}} {{!-- current user works, but not recognizing mongoose .equals method. --}} {{!-- {{#if ../spot.author.id.equals(this._id)}}
+                            --}}
+                            <a class='btn btn-warning' href='/spots/{{spot._id}}/edit'>Edit</a>
+                            <form class='deleteForm' action='/spots/{{spot._id}}?_method=DELETE' method='POST'>
+                                <button class='btn btn-danger'>Delete</button>
+                            </form>
+                            {{!-- {{/if}} --}} {{/if}}
                         </div>
                     </div>
                     <div class='well'>
                         <div class="text-right">
-                           
+
                             <a class='btn btn-success' href='/spots/{{spot._id}}/comments/new'>Add Comment</a>
                         </div>
-                         <hr>
-                         {{#each spot.comments}}
-                            <div class='row'>
-                                <div class='text-left col-md-12'>
-                                   <strong>{{this.author.username}}:</strong> 
-                                    <span class="pull-right">10 days ago (hard coded)</span>
-                                    <p>
-                                        {{this.text}}
-                                    </p>
+                        <hr> {{#each spot.comments}}
+                        <div class='row'>
+                            <div class='text-left col-md-12'>
+                                <strong>{{this.author.username}}:</strong>
+                                <span class="pull-right">10 days ago (hard coded)</span>
+                                <p>
+                                    {{this.text}}
+                                </p>
 
-                                    {{!-- ../spot... gives access to global spot, otherwise can't access outside of the #each block --}}
-                                    <a class='btn btn-xs btn-warning'
-                                    href='/spots/{{../spot._id}}/comments/{{this._id}}/edit'> 
+                                {{!-- ../spot... gives access to global spot, otherwise can't access outside of the #each block --}}
+                                <a class='btn btn-xs btn-warning' href='/spots/{{../spot._id}}/comments/{{this._id}}/edit'>
                                     Edit
-                                    </a>
-                                    {{!-- Have to use a form because anchor tags can only do GET requests --}}
-                                    <form class='deleteForm' action='/spots/{{../spot._id}}/comments/{{this._id}}?_method=DELETE' method='POST'>
-                                        <input type='submit' class='btn btn-xs btn-danger' value='delete' >
-                                    </form>
-
-                                </div>
+                                </a>
+                                {{!-- Have to use a form because anchor tags can only do GET requests --}}
+                                <form class='deleteForm' action='/spots/{{../spot._id}}/comments/{{this._id}}?_method=DELETE' method='POST'>
+                                    <input type='submit' class='btn btn-xs btn-danger' value='delete'>
+                                </form>
                             </div>
-                            {{/each}}
-
+                        </div>
+                        {{/each}}
                     </div>
                 </div>
             </div>
