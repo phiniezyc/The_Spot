@@ -25,5 +25,7 @@ const spotSchema = new Schema({
 
 const Spot = mongoose.model('Spot', spotSchema);
 
+// case sensitive changed in Spots and Users
+
 
 module.exports = Spot;
